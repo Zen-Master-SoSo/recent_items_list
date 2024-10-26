@@ -40,7 +40,7 @@ class RecentItemsList:
 
 	"""
 
-	maxlen = 0
+	maxlen = 10
 
 	def __init__(self, items):
 		self.items = items
