@@ -1,3 +1,7 @@
+#  recent_items_list/__init__.py
+#
+#  Copyright 2024 liyang <liyang@veronica>
+#
 from functools import partial
 
 
@@ -65,3 +69,5 @@ class RecentItemsList:
 	def __len__(self):
 		return self.items.__len__()
 
+
+#  end recent_items_list/__init__.py
