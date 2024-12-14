@@ -56,7 +56,7 @@ class RecentItemsList:
 		"""
 		old_items = self.items
 		self.items = [item]
-		self.items.extend([old_item for old_item in old_items if old_item != item])
+		self.items.extend( old_item for old_item in old_items if old_item != item )
 		if self.maxlen > 0:
 			self.items = self.items[:self.maxlen]
 
