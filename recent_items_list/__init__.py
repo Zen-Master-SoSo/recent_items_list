@@ -31,6 +31,7 @@ class RecentItemsList:
 	"""
 
 	maxlen = 10
+	on_changed = None
 
 	def __init__(self, items):
 		self.items = items
@@ -45,9 +46,26 @@ class RecentItemsList:
 		self.items.extend( old_item for old_item in old_items if old_item != item )
 		if self.maxlen > 0:
 			self.items = self.items[:self.maxlen]
+		if self.on_changed:
+			self.on_changed(self.items)
 
 	def remove(self, item):
 		self.items = [old_item for old_item in self.items if old_item != item]
+		if self.on_changed:
+			self.on_changed(self.items)
+
+	def on_change(self, callback):
+		"""
+		Registers a callback which is run every time the list changes.
+		The callback must have the signature:
+
+			def <function_name>(self, items):
+
+		"""
+		if callable(callback):
+			self.on_changed = callback
+		else:
+			raise RuntimeError('Callback is not callable')
 
 	def __iter__(self):
 		return self.items.__iter__()
