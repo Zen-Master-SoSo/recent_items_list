@@ -1,23 +1,33 @@
 # recent_items_list
 
-RecentItemsList acts like a list, except that calling the "bump()" method on it
-bumps an item to the beginning of the list.
+A list -like class which can "bump" items to the top.
 
 By default, only the last 10 items are kept in the list. If a new item is
 "bumped" to the beginning of a RecentItemsList that already has 10 items, the
 item at the end of the list is dropped. You can change this by setting the
 "maxlen" property on an instance of RecentItemsList.
 
-When
+The two most used methods are "bump(<item>)" and "remove(<item>)".
+
+### When an item needs to be added OR moved to the top:
+
+	self._recent_files.bump(filename)
+
+### When item needs to be removed:
+
+	self._recent_files.remove(filename)
 
 ## Example:
 
-In __init__:
+This is a simple implementation of a "Recent Files" menu.
 
-	self._recent_files = RecentItemsList(self.settings.value("recent_files", defaultValue = []))
-	self.menuOpen_Recent.aboutToShow.connect(self.fill_recent_files)
+### Initializing
 
-### Filling a menu:
+	def __init__(self):
+		self._recent_files = RecentItemsList(self.settings.value("recent_files", defaultValue = []))
+		self.menuOpen_Recent.aboutToShow.connect(self.fill_recent_files)
+
+### Filling the menu:
 
 	@pyqtSlot()
 	def fill_recent_files(self):
@@ -29,16 +39,7 @@ In __init__:
 			actions.append(action)
 		self.menuOpen_Recent.addActions(actions)
 
-
-### When item is found:
-
-	self._recent_files.bump(filename)
-
-### When item is missing:
-
-	self._recent_files.remove(filename)
-
-### Save to QSettings:
+### Saving to QSettings:
 
 	self.settings.setValue("recent_files", self._recent_files.items)
 
