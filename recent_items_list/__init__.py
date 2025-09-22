@@ -22,7 +22,7 @@ RecentItemsList acts like a list, except that calling the "bump()" method on it
 bumps an item to the beginning of the list.
 """
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 
 class RecentItemsList:
